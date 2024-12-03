@@ -8,24 +8,30 @@
 import Foundation
 import SwiftUI
 
+public enum RoutePriority: Int {
+    case low, normal, high, critical
+}
+
 /// A type-erased ViewRoute.
 public struct AnyViewRoute: ViewRoute {
-    public typealias Body = AnyView
         
     private let _route: any ViewRoute
+    private let _priority: RoutePriority
     
     public var id: ID { _route.id }
     
-    public init(erasing wrappedValue: any ViewRoute) {
+    public init(erasing wrappedValue: any ViewRoute, priority: RoutePriority) {
         self._route = wrappedValue
+        self._priority = priority
     }
     
     public init(erasing wrappedValue: some ViewRoute) {
         self._route = wrappedValue
+        self._priority = .normal
     }
     
-    public func makeBody(context: Context) -> Self.Body {
-        AnyView(_route.makeBody(context: context))
+    public var body: some View {
+        AnyView(_route.body)
     }
 }
 

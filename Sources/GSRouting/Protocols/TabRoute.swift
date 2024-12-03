@@ -7,8 +7,6 @@
 
 import SwiftUI
 
-// MARK: - TabRoute
-
 /**
  A protocol defining the structure of a tab in a tab-based navigation system.
 
@@ -63,8 +61,6 @@ public protocol TabRoute: Hashable, Equatable, Identifiable where ID == String {
     typealias Context = RoutableTabContext
 }
 
-// MARK: - Protocol default implementations
-
 public extension TabRoute {
     
     func hash(into hasher: inout Hasher) {
@@ -75,8 +71,6 @@ public extension TabRoute {
         lhs.id == rhs.id
     }
 }
-
-// MARK: - Context
 
 /**
  Contextual information for a routable tab within a tab-based navigation system.
