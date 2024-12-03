@@ -7,6 +7,11 @@
 
 import SwiftUI
 
+#warning("Deeplink handling history handling")
+#warning("Introduce navigation destination for hashable objects with lists")
+#warning("Documentation")
+#warning("Sheet and cover queue")
+
 fileprivate extension EnvironmentValues {
     @Entry var dismissRoot: (() -> Void)?
 }
