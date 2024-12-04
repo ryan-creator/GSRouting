@@ -8,7 +8,7 @@
 import Foundation
 import SwiftUI
 
-public enum RoutePriority: Int {
+public enum ActionPriority: Int {
     case low, normal, high, critical
 }
 
@@ -16,11 +16,11 @@ public enum RoutePriority: Int {
 public struct AnyViewRoute: ViewRoute {
         
     private let _route: any ViewRoute
-    private let _priority: RoutePriority
+    private let _priority: ActionPriority
     
     public var id: ID { _route.id }
     
-    public init(erasing wrappedValue: any ViewRoute, priority: RoutePriority) {
+    public init(erasing wrappedValue: any ViewRoute, priority: ActionPriority) {
         self._route = wrappedValue
         self._priority = priority
     }

@@ -9,9 +9,9 @@ import SwiftUI
 
 @MainActor
 public final class AppNavigationRouter: ObservableObject {
-    private var callbacks: Callbacks?
+    var callbacks: Callbacks?
     
-    internal func initialize(
+    func initialize(
         push: @escaping (AnyViewRoute) -> Void,
         pop: @escaping () -> Void,
         popToRoot: @escaping () -> Void,
@@ -35,45 +35,7 @@ public final class AppNavigationRouter: ObservableObject {
         )
     }
     
-    public func pop() {
-        callbacks?.pop()
-    }
-    
-    public func popToRoot() {
-        callbacks?.popToRoot()
-    }
-    
-    public func switchTab(id: String) {
-        callbacks?.switchToTab(id)
-    }
-    
-    public func push(_ view: some ViewRoute, priority: RoutePriority = .normal) {
-        callbacks?.push(AnyViewRoute(erasing: view, priority: priority))
-    }
-    
-    public func presentSheet(_ view: some ViewRoute, priority: RoutePriority = .normal) {
-        callbacks?.presentSheet(AnyViewRoute(erasing: view, priority: priority))
-    }
-    
-    public func presentCover(_ view: some ViewRoute, priority: RoutePriority = .normal) {
-        callbacks?.presentCover(AnyViewRoute(erasing: view, priority: priority))
-    }
-    
-    public func presentPath(_ path: [some ViewRoute], priority: RoutePriority = .normal) {
-        callbacks?.presentPath(path.map({ route in
-            AnyViewRoute(erasing: route, priority: priority)
-        }))
-    }
-    
-    public func closeSheet() {
-        callbacks?.closeSheet()
-    }
-    
-    public func closeFullScreenCover() {
-        callbacks?.closeFullScreenCover()
-    }
-    
-    private struct Callbacks {
+    struct Callbacks {
         let push: (_ view: AnyViewRoute) -> Void
         let pop: () -> Void
         let popToRoot: () -> Void

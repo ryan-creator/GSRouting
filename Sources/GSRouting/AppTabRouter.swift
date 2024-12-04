@@ -7,7 +7,8 @@
 
 import Foundation
 
-@MainActor internal final class AppTabRouter: ObservableObject {
+@MainActor
+internal final class AppTabRouter: ObservableObject {
     
     @Published 
     var selectedTab: AnyTabRoute
