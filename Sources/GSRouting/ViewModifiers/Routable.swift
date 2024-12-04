@@ -8,7 +8,6 @@
 import SwiftUI
 
 #warning("Deeplink handling history handling")
-#warning("Documentation")
 #warning("Sheet and cover queue")
 
 fileprivate extension EnvironmentValues {
@@ -116,6 +115,7 @@ private extension RoutableViewModifier {
     
     func presentPath(_ path: [AnyViewRoute]) {
         self.path = path
+        self.trackablePath = path.map { .push(id: $0.id) }
     }
 
     func presentSheetView(sheet: AnyViewRoute) {
