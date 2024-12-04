@@ -217,7 +217,15 @@ For debugging purposes, GSRouting can log the navigation path to the console whe
 
 #### Adding Runtime Arguments in Xcode Scheme
 
-To enable logging in Xcode during development: 1. Open your project in Xcode. 2. In the toolbar, click the Scheme Selector (next to the Stop button) and choose Edit Scheme. 3. In the Edit Scheme dialog, select the Run action from the sidebar. 4. Navigate to the Arguments tab at the top of the dialog. 5. Under the Arguments Passed On Launch section, click the + button. 6. Add the argument --log-navigation and ensure the checkbox next to it is selected. 7. Click Close to save your changes.
+To enable logging in Xcode during development:
+
+1. Open your project in Xcode.
+2. In the toolbar, click the Scheme Selector (next to the Stop button) and choose Edit Scheme.
+3. In the Edit Scheme dialog, select the Run action from the sidebar.
+4. Navigate to the Arguments tab at the top of the dialog.
+5. Under the Arguments Passed On Launch section, click the + button.
+6. Add the argument --log-navigation and ensure the checkbox next to it is selected.
+7. Click Close to save your changes.
 
 Now, every time the app runs using this scheme, navigation path changes will be logged to the console.
 
