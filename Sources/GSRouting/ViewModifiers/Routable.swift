@@ -11,7 +11,7 @@ fileprivate extension EnvironmentValues {
     @Entry var dismissRoot: (() -> Void)?
 }
 
-private struct RoutableViewModifier: ViewModifier {
+struct RoutableViewModifier: ViewModifier {
     
     @EnvironmentObject
     private var tabRouter: AppTabRouter
@@ -173,11 +173,5 @@ private extension RoutableViewModifier {
     
     func navigationDestinationView(_ destination: AnyViewRoute) -> some View {
         destination.body
-    }
-}
-
-extension View {
-    public func routable() -> some View {
-        modifier(RoutableViewModifier())
     }
 }

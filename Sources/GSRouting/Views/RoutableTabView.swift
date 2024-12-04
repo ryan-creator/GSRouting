@@ -68,7 +68,7 @@ public struct RoutableTabView: View {
     }
     
     private func contentView(tab: AnyTabRoute) -> some View {
-        tab.makeContent(context: makeContext(tab: tab))
+        tab.makeContent(context: makeContext(tab: tab)).modifier(RoutableViewModifier())
     }
     
     private func makeContext(tab: AnyTabRoute) -> TabRoute.Context {
