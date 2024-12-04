@@ -10,6 +10,9 @@ navigating between tabs.
 
 -   [Installation](#installation)
 -   [Usage](#usage)
+-   [Queue & Priority](#queue)
+-   [Access Navigation Path](#navigation-path)
+-   [Logging & Debugging](#logging)
 -   [License](#license)
 
 ## Installation <a name="installation"></a>
@@ -100,7 +103,7 @@ let id: String = "home"
 }
 ```
 
-### Step 2: Navigating to & presenting views.
+### Step 2: Navigating to & Presenting Views.
 
 All navigation operations can be performed by interacting with the injected instance of `AppNavigationRouter`. This can be done by a property marked with `@Router` in a SwiftUI view.
 
@@ -127,7 +130,7 @@ struct ContentView: View {
 }
 ```
 
-### Creating a `ViewRoute` for presentation/navigation:
+### Creating a `ViewRoute` for Presentation & Navigation:
 
 A ViewRoute declaration allows for presenting and navigating to the view returned in it's `body` var.
 
@@ -157,7 +160,7 @@ router.push(.myView)
 
 ## Advanced Usage
 
-### Queueing & Priority
+### Queueing & Priority <a name="queue"></a>
 
 GSRouting supports queueing for sheets and full-screen covers, allowing multiple presentation requests to be handled sequentially based on their assigned priority. This ensures that the highest-priority views are displayed first.
 
@@ -177,7 +180,7 @@ When a navigation request is made for a sheet or cover: 1. It is added to a queu
 
 This mechanism ensures that multiple requests don’t cause overlapping presentations.
 
-### Access Navigation Path
+### Access Navigation Path <a name="navigation-path"></a>
 
 GSRouting provides access to the navigation path, enabling developers to track or modify the sequence of navigations.
 
@@ -209,7 +212,7 @@ struct MyView: View {
 }
 ```
 
-### Logging Navigation Path
+### Logging Navigation Path <a name="logging"></a>
 
 For debugging purposes, GSRouting can log the navigation path to the console whenever it changes. This feature is activated by passing the --log-navigation runtime argument when launching the app. The log provides insights into navigation behavior, which can be useful for tracking unexpected navigations or ensuring navigation steps are executed as expected.
 
