@@ -32,9 +32,8 @@ public extension AppNavigationRouter {
     ///
     /// - Parameters:
     ///   - view: The view to push onto the navigation stack. Must conform to `ViewRoute`.
-    ///   - priority: The priority of the navigation action. Defaults to `.normal`.
-    func push(_ view: some ViewRoute, priority: ActionPriority = .normal) {
-        callbacks?.push(AnyViewRoute(erasing: view, priority: priority))
+    func push(_ view: some ViewRoute) {
+        callbacks?.push(AnyViewRoute(erasing: view))
     }
 
     /// Presents a new view as a modal sheet.
@@ -43,7 +42,7 @@ public extension AppNavigationRouter {
     ///   - view: The view to present as a sheet. Must conform to `ViewRoute`.
     ///   - priority: The priority of the navigation action. Defaults to `.normal`.
     func presentSheet(_ view: some ViewRoute, priority: ActionPriority = .normal) {
-        callbacks?.presentSheet(AnyViewRoute(erasing: view, priority: priority))
+        callbacks?.presentSheet(AnyViewRoute(erasing: view, priority: priority, type: .sheet))
     }
 
     /// Presents a new view as a full-screen cover.
@@ -52,17 +51,16 @@ public extension AppNavigationRouter {
     ///   - view: The view to present as a full-screen cover. Must conform to `ViewRoute`.
     ///   - priority: The priority of the navigation action. Defaults to `.normal`.
     func presentCover(_ view: some ViewRoute, priority: ActionPriority = .normal) {
-        callbacks?.presentCover(AnyViewRoute(erasing: view, priority: priority))
+        callbacks?.presentCover(AnyViewRoute(erasing: view, priority: priority, type: .fullScreenCover))
     }
 
     /// Replaces the current navigation path with a new sequence of views.
     ///
     /// - Parameters:
     ///   - path: An array of views to set as the new navigation path. Each view must conform to `ViewRoute`.
-    ///   - priority: The priority of the navigation action. Defaults to `.normal`.
-    func presentPath(_ path: [some ViewRoute], priority: ActionPriority = .normal) {
+    func presentPath(_ path: [some ViewRoute]) {
         callbacks?.presentPath(path.map({ route in
-            AnyViewRoute(erasing: route, priority: priority)
+            AnyViewRoute(erasing: route)
         }))
     }
 

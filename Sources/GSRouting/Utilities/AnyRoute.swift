@@ -12,22 +12,33 @@ public enum ActionPriority: Int {
     case low, normal, high, critical
 }
 
+public enum RouteType {
+    case sheet, fullScreenCover
+}
+
 /// A type-erased ViewRoute.
 public struct AnyViewRoute: ViewRoute {
         
     private let _route: any ViewRoute
-    private let _priority: ActionPriority
     
     public var id: ID { _route.id }
+    public let priority: ActionPriority?
+    public let type: RouteType?
     
-    public init(erasing wrappedValue: any ViewRoute, priority: ActionPriority) {
+    public init(
+        erasing wrappedValue: any ViewRoute,
+        priority: ActionPriority? = nil,
+        type: RouteType? = nil
+    ) {
+        self.type = type
+        self.priority = priority
         self._route = wrappedValue
-        self._priority = priority
     }
     
     public init(erasing wrappedValue: some ViewRoute) {
+        self.type = nil
+        self.priority = nil
         self._route = wrappedValue
-        self._priority = .normal
     }
     
     public var body: some View {

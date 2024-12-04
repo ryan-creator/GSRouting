@@ -7,9 +7,6 @@
 
 import SwiftUI
 
-#warning("Deeplink handling history handling")
-#warning("Sheet and cover queue")
-
 fileprivate extension EnvironmentValues {
     @Entry var dismissRoot: (() -> Void)?
 }
@@ -26,6 +23,9 @@ private struct RoutableViewModifier: ViewModifier {
     private var dismiss
     
     @StateObject
+    private var queueManager = QueueManager()
+    
+    @StateObject
     private var navRouter = AppNavigationRouter()
     
     @State private var path: [AnyViewRoute] = []
@@ -37,8 +37,8 @@ private struct RoutableViewModifier: ViewModifier {
     func body(content: Content) -> some View {
         NavigationStack(path: $path) {
             content
-                .sheet(item: $sheet, content: sheetView)
-                .fullScreenCover(item: $fullScreenCover, content: fullScreenCoverView)
+                .sheet(item: $sheet, onDismiss: presentNext, content: sheetView)
+                .fullScreenCover(item: $fullScreenCover, onDismiss: presentNext, content: fullScreenCoverView)
                 .navigationDestination(for: AnyViewRoute.self, destination: navigationDestinationView)
         }
         .onAppear {
@@ -66,6 +66,10 @@ private struct RoutableViewModifier: ViewModifier {
                 print(newHistory)
             }
         }
+    }
+    
+    private var presentingOverlay: Bool {
+        sheet != nil || fullScreenCover != nil
     }
     
     private var isLoggingEnabled: Bool {
@@ -119,12 +123,20 @@ private extension RoutableViewModifier {
     }
 
     func presentSheetView(sheet: AnyViewRoute) {
-        self.sheet = sheet
+        if presentingOverlay {
+            self.queueManager.enqueue(route: sheet)
+        } else {
+            self.sheet = sheet
+        }
         self.trackablePath.append(.sheet(id: sheet.id))
     }
 
     func presentCoverView(cover: AnyViewRoute) {
-        self.fullScreenCover = cover
+        if presentingOverlay {
+            self.queueManager.enqueue(route: cover)
+        } else {
+            self.fullScreenCover = cover
+        }
         self.trackablePath.append(.fullScreen(id: cover.id))
     }
 
@@ -136,6 +148,19 @@ private extension RoutableViewModifier {
             self.trackablePath = []
         }
         self.tabRouter.switchToTab(id: id)
+    }
+    
+    func presentNext() {
+        queueManager.dequeue { next in
+            switch next.type {
+            case .sheet:
+                sheet = next
+            case .fullScreenCover:
+                fullScreenCover = next
+            case .none:
+                break
+            }
+        }
     }
     
     func sheetView(_ sheet: AnyViewRoute) -> some View {
