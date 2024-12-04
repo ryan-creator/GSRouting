@@ -7,6 +7,23 @@
 
 import SwiftUI
 
+/**
+ A protocol defining a view that can be presented by the `AppNavigationRouter`.
+ 
+ This protocol allows for the creation of presentable views with a specific body.
+ 
+ - Important: The associated type `Body` must conform to SwiftUI's `View` protocol.
+ 
+ Usage:
+ ```swift
+ struct MyViewRoute: ViewRoute {
+     var body: some View {
+         Text("Hello World!")
+        }
+     }
+ }
+ ```
+ */
 @_typeEraser(AnyViewRoute)
 public protocol ViewRoute: Hashable, Equatable, Identifiable where ID == String {
     /// The type of view representing the body of this ViewRoute.
