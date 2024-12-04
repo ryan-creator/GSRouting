@@ -45,7 +45,7 @@ dependencies: [
 
 Next, add GSRouting as a dependency of your test target:
 
-````swift
+```swift
 targets: [
   .target(
     name: "MyApp",
@@ -53,6 +53,7 @@ targets: [
   ),
   .testTarget(...)
 ]
+```
 
 ## Usage <a name="usage"></a>
 
@@ -76,11 +77,9 @@ struct AppView: App {
     }
 
 }
-````
+```
 
-## Usage <a name="usage"></a>
-
-### Creating a `TabRoute`:
+#### Creating a `TabRoute`:
 
 A TabRoute conforming object represents a single tab, providing functions to render the label displayed in the tab bar,
 as well as the content displayed when the tab is selected.
@@ -109,7 +108,7 @@ All navigation operations can be performed by interacting with the injected inst
 
 **Important:** It's important the parent view applies the `.routable()` modifier which injects the router and enables navigation functionality.
 
-### Usage of `@Router`:
+#### Usage of `@Router`:
 
 ```swift
 struct ContentView: View {
@@ -130,7 +129,7 @@ struct ContentView: View {
 }
 ```
 
-### Creating a `ViewRoute` for Presentation & Navigation:
+#### Creating a `ViewRoute` for Presentation & Navigation:
 
 A ViewRoute declaration allows for presenting and navigating to the view returned in it's `body` var.
 
